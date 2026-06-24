@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Кабинет преподавателя</title>
+
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body class="dashboard-body">
+
+<%- include('../navigation') %>
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="sidebar-profile glass-card">
+
+            <div class="avatar-circle">
+
+                <%= user.fullName
+                    ? user.fullName.charAt(0)
+                    : 'П'
+                %>
+
+            </div>
+
+            <h3>
+                <%= user.fullName %>
+            </h3>
+
+            <p>
+                Преподаватель
+            </p>
+
+        </div>
+
+        <div class="sidebar-menu glass-card">
+
+    <a
+    href="/teacher/students?user=<%= encodeURIComponent(JSON.stringify(user)) %>"
+    class="sidebar-link"
+>
+    👨‍🎓 Все ученики
+</a>
+
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="dashboard-main">
+
+<section class="dashboard-section glass-card">
+
+    <div class="section-header">
+        <h2>Управление учениками</h2>
+    </div>
+
+    <div class="students-modern-grid">
+
+        <% enrollments.forEach(enr => { %>
+
+            <div class="student-modern-card glass-card">
+
+                <div class="student-card-top">
+
+                    <div class="student-avatar-modern">
+                        <%= enr.childName ? enr.childName.charAt(0) : 'У' %>
+                    </div>
+
+                    <div>
+                        <h3><%= enr.childName %></h3>
+                        <p><%= enr.childAge || '—' %> лет</p>
+                    </div>
+
+                </div>
+
+                <div class="student-info-list">
+
+                    <div class="student-info-row">
+                        <span>Родитель</span>
+                        <strong><%= enr.fullName || '—' %></strong>
+                    </div>
+
+                    <div class="student-info-row">
+                        <span>Телефон</span>
+                        <strong><%= enr.phone || '—' %></strong>
+                    </div>
+
+                    <div class="student-info-row">
+                        <span>Email</span>
+                        <strong><%= enr.email || '—' %></strong>
+                    </div>
+
+                </div>
+
+                <div class="student-card-bottom modern-buttons-zone">
+
+                    <span class="
+                        modern-status
+                        modern-status-<%= enr.status || 'pending' %>
+                    ">
+
+                        <%= enr.status === 'confirmed'
+                            ? 'Подтверждён'
+                            : enr.status === 'cancelled'
+                            ? 'Отклонён'
+                            : 'В ожидании'
+                        %>
+
+                    </span>
+
+                    <div class="student-actions modern-actions">
+
+                        <button
+                            onclick="updateEnrollmentStatus('<%= enr.id %>', 'confirmed')"
+                            class="confirm-btn modern-confirm-btn">
+                            Одобрить
+                        </button>
+
+                        <button
+                            onclick="updateEnrollmentStatus('<%= enr.id %>', 'cancelled')"
+                            class="cancel-btn modern-cancel-btn">
+                            Отклонить
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</section>
+
+    <section class="dashboard-section glass-card" id="schedule">
+
+<div class="section-header">
+
+    <div>
+
+        <h2>Электронный журнал</h2>
+
+        <p class="schedule-subtitle">
+            Расписание занятий на неделю
+        </p>
+
+    </div>
+
+    <button
+        class="primary-btn"
+        id="saveScheduleBtn"
+    >
+        Сохранить
+    </button>
+
+</div>
+
+<div class="week-tabs">
+
+    <button class="day-tab active" data-day="0">
+        Пн
+    </button>
+
+    <button class="day-tab" data-day="1">
+        Вт
+    </button>
+
+    <button class="day-tab" data-day="2">
+        Ср
+    </button>
+
+    <button class="day-tab" data-day="3">
+        Чт
+    </button>
+
+    <button class="day-tab" data-day="4">
+        Пт
+    </button>
+
+</div>
+
+<div id="scheduleContent">
+
+<%
+const savedSchedule = user.schedule || [];
+%>
+
+<%
+const times = [
+    '09:00–09:45',
+    '10:00–10:45',
+    '11:00–11:45',
+    '13:00–13:45',
+    '14:00–14:45',
+    '15:00–15:45'
+];
+%>
+
+<% for(let day = 0; day < 5; day++) { %>
+
+<div class="schedule-day"
+     id="schedule-day-<%= day %>"
+     style="<%= day === 0 ? '' : 'display:none' %>">
+
+    <% for(let i = 0; i < 6; i++) { %>
+
+    <div class="schedule-event">
+
+        <div class="schedule-time">
+
+            <input
+                type="text"
+                class="lesson-input modern-input"
+                id="lesson-<%= i + 1 %>"
+                value="<%= savedSchedule[i]?.lesson || '' %>"
+                placeholder="09:00–09:45"
+            >
+
+        </div>
+        
+
+        
+
+        <textarea
+            class="schedule-cell"
+            id="cell-<%= i + 1 %>-<%= day + 1 %>"
+            placeholder="Предмет / кабинет"
+        ><%= savedSchedule[i]?.days?.[day] || '' %></textarea>
+
+    </div>
+
+    <% } %>
+
+</div>
+
+<% } %>
+
+</div>
+
+</section>
+
+
+        
+
+    </main>
+
+</div>
+
+
+<%- include('../footer') %>
+
+<script>
+
+function setTeacherDates(){
+
+    const days = [
+        'Пн',
+        'Вт',
+        'Ср',
+        'Чт',
+        'Пт'
+    ];
+
+    const now = new Date();
+
+    const monday = new Date(now);
+
+    monday.setDate(
+        now.getDate() - now.getDay() + 1
+    );
+
+    for(let i = 0; i < 5; i++){
+
+        const date = new Date(monday);
+
+        date.setDate(
+            monday.getDate() + i
+        );
+
+        const element =
+            document.getElementById(
+                `day${i+1}`
+            );
+
+        if(element){
+
+            element.innerText =
+                `${days[i]} ${
+                    date.getDate()
+                }.${
+                    date.getMonth()+1
+                }`;
+
+        }
+
+    }
+
+}
+
+setTeacherDates();
+
+document.querySelectorAll('.day-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.schedule-day').forEach(d => d.style.display = 'none');
+        btn.classList.add('active');
+        const day = btn.dataset.day;
+        const block = document.getElementById(`schedule-day-${day}`);
+        if (block) block.style.display = '';
+    });
+});
+
+
+
+const today = new Date().getDay();
+
+if (today >= 1 && today <= 5) {
+
+    const cards =
+        document.querySelectorAll('.day-card');
+
+    if(cards[today - 1]){
+
+        cards[today - 1].style.border =
+            '2px solid #6366f1';
+
+        cards[today - 1].style.boxShadow =
+            '0 0 30px rgba(99,102,241,.3)';
+    }
+}
+
+document
+    .getElementById('saveScheduleBtn')
+    ?.addEventListener('click', saveScheduleTable);
+
+    async function saveScheduleTable(){
+
+    const schedule = [];
+
+    for(let i = 1; i <= 6; i++){
+
+        const lesson =
+            document.getElementById(
+                `lesson-${i}`
+            )?.value || '';
+
+        const days = [];
+
+        for(let j = 1; j <= 5; j++){
+
+            days.push(
+                document.getElementById(
+                    `cell-${i}-${j}`
+                )?.value || ''
+            );
+
+        }
+
+        schedule.push({
+            lesson,
+            days
+        });
+
+    }
+
+    try {
+
+        const response = await fetch(
+            '/api/teacher/update-schedule',
+            {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type':
+                        'application/json'
+                },
+
+                body: JSON.stringify({
+    teacherId: "<%= user.id %>",
+    schedule
+})
+            }
+        );
+
+        const data =
+            await response.json();
+
+        if(data.success){
+
+            alert(
+                'Расписание сохранено'
+            );
+
+        }
+
+    } catch(err){
+
+        console.error(err);
+
+        alert(
+            'Ошибка сохранения'
+        );
+
+    }
+
+}
+
+document
+    .getElementById('saveScheduleBtn')
+    ?.addEventListener(
+        'click',
+        saveScheduleTable
+    );
+
+async function updateEnrollmentStatus(id, status){
+
+    try{
+
+        const response = await fetch(
+    '/api/teacher/update-enrollment-status',
+            {
+                method:'POST',
+
+                headers:{
+                    'Content-Type':'application/json'
+                },
+
+                body:JSON.stringify({
+    enrollmentId: id,
+    status
+})
+            }
+        );
+
+        const data = await response.json();
+
+        if(data.success){
+
+            window.location.reload();
+
+        } else {
+
+            alert(data.error || 'Ошибка');
+
+        }
+
+    } catch(err){
+
+        console.error(err);
+
+        alert('Ошибка сервера');
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

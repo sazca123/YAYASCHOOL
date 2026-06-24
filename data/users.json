@@ -1,0 +1,364 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@alexander.ru",
+      "password": "admin123",
+      "fullName": "Администратор",
+      "phone": "+7 (999) 999-99-99",
+      "role": "admin",
+      "approved": true,
+      "registeredAt": "2025-12-25T00:00:00.000Z"
+    },
+    {
+      "id": "1779808010623",
+      "email": "teacher1@mail.ru",
+      "password": "123456",
+      "fullName": "Петрова Анна Васильевна",
+      "phone": "+79617192004",
+      "role": "teacher",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-26T15:06:50.623Z",
+      "assignedProgram": "Классический танец",
+      "schedule": [
+        {
+          "lesson": "12:45",
+          "days": [
+            "Экзерсис у станка",
+            "",
+            "",
+            "",
+            "231"
+          ]
+        },
+        {
+          "lesson": "13:40",
+          "days": [
+            "Пуанты",
+            "",
+            "321",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "14:35",
+          "days": [
+            "Растяжка",
+            "",
+            "",
+            "321",
+            ""
+          ]
+        },
+        {
+          "lesson": "15:30",
+          "days": [
+            "Подготовительная группа",
+            "312",
+            "",
+            "",
+            "321"
+          ]
+        },
+        {
+          "lesson": "16:25",
+          "days": [
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "17:20",
+          "days": [
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1779808102602",
+      "email": "parent1@mail.ru",
+      "password": "123456",
+      "fullName": "Маслов Иван Дмитриевич",
+      "phone": "+79133173191",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-26T15:08:22.602Z",
+      "childName": "Маслов Роман Иванович",
+      "childAge": 8
+    },
+    {
+      "id": "1779808686930",
+      "email": "parent2@mail.ru",
+      "password": "123456",
+      "fullName": "Фамилия Имя Отчество",
+      "phone": "+79996481111",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-26T15:18:06.930Z",
+      "childName": "Орешко Максим Анатольевич",
+      "childAge": 8
+    },
+    {
+      "id": "1779899502281",
+      "email": "parent3@mail.ru",
+      "password": "123456",
+      "fullName": "Лириков Ден Анат",
+      "phone": "+79113134321",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-27T16:31:42.281Z",
+      "childName": "Астаф МАКСИМ дубап",
+      "childAge": 6
+    },
+    {
+      "id": "1779908377381",
+      "email": "parent4@mail.ru",
+      "password": "123456",
+      "fullName": "Масловский Дмитрий Николаевич",
+      "phone": "+79996489219",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-27T18:59:37.381Z",
+      "childName": "Масловский Иван Дмитриевич",
+      "childAge": 10
+    },
+    {
+      "id": "1779911182899",
+      "email": "teacher2@mail.ru",
+      "password": "123456",
+      "fullName": "Соколова Мария Ивановна",
+      "phone": "+79233136767",
+      "role": "teacher",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-27T19:46:22.899Z",
+      "assignedProgram": "Современный танец"
+    },
+    {
+      "id": "1779912889123",
+      "email": "teacher5@mail.ru",
+      "password": "123456",
+      "fullName": "Соколова Мария Ивановна",
+      "phone": "+79233136767",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-27T20:14:49.123Z",
+      "childName": "Маслов Иван Дмитриевич",
+      "childAge": 9
+    },
+    {
+      "id": "1779913924950",
+      "email": "mr.snailman42rus@mail.ru",
+      "password": "123456",
+      "fullName": "Крестьянников Александр Романович",
+      "phone": "+79996489219",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-27T20:32:04.950Z",
+      "childName": "Масловский Дмитрий Николаевич",
+      "childAge": 8
+    },
+    {
+      "id": "1779914686650",
+      "email": "untctrlaltdeceit@mail.ru",
+      "password": "123456",
+      "fullName": "Масловский Дмитрий Николаевич",
+      "phone": "+79996489219",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-05-27T20:44:46.650Z",
+      "childName": "Маслов Иван Дмитриевич",
+      "childAge": 8
+    },
+    {
+      "id": "1781075971852",
+      "email": "vano_iz_goroda@mail.ru",
+      "password": "123456",
+      "fullName": "Маслов Иван Дмитриевич",
+      "phone": "+79133173191",
+      "role": "teacher",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-06-10T07:19:31.852Z",
+      "assignedProgram": "Эстрадный вокал",
+      "schedule": [
+        {
+          "lesson": "пение",
+          "days": [
+            "123",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "",
+          "days": [
+            "132",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "",
+          "days": [
+            "",
+            "312",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "",
+          "days": [
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "",
+          "days": [
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "",
+          "days": [
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1782290772301",
+      "email": "edyaro@mail.ru",
+      "password": "123456",
+      "fullName": "Крестьянников Александр Романович",
+      "phone": "+79996489219",
+      "role": "student",
+      "approved": true,
+      "position": null,
+      "registeredAt": "2026-06-24T08:46:12.301Z",
+      "childName": "Петрова Анна Васильевна",
+      "childAge": 7
+    },
+    {
+      "id": "1782291003156",
+      "email": "edyaroro@mail.ru",
+      "password": "admin123",
+      "fullName": "Маслов Иван Дмитриевич",
+      "phone": "+79133173191",
+      "role": "teacher",
+      "approved": true,
+      "assignedProgram": "Народный танец",
+      "position": null,
+      "registeredAt": "2026-06-24T08:50:03.156Z",
+      "schedule": [
+        {
+          "lesson": "123",
+          "days": [
+            "123",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "123",
+          "days": [
+            "312",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "123",
+          "days": [
+            "132",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "132",
+          "days": [
+            "132",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "231",
+          "days": [
+            "123",
+            "",
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "lesson": "",
+          "days": [
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1782325343328",
+      "email": "test@mail.ru",
+      "password": "123456",
+      "fullName": "Соколова Мария Ивановна",
+      "phone": "+79233136767",
+      "role": "teacher",
+      "approved": true,
+      "assignedProgram": "Живопись",
+      "position": null,
+      "registeredAt": "2026-06-24T18:22:23.328Z"
+    }
+  ]
+}

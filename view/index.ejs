@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Школа 51</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+
+<body>
+    <%- include('navigation') %>
+    
+    <main>
+      <div class="banner">
+        <div class="left">
+            <h1>ДЕТСКАЯ ШКОЛА ИСКУССТВ 51</h1>
+            <span>
+                <button id="scroll-to-categories">
+    Записаться на занятия
+</button>
+                <a href="/vk.com">
+                    <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <rect width="55" height="55" fill="url(#pattern0_68_764)"/>
+                        <defs>
+                        <pattern id="pattern0_68_764" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlink:href="#image0_68_764" transform="translate(0 -0.00724638) scale(0.0144928)"/>
+                        </pattern>
+                        <image id="image0_68_764" width="69" height="70" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+                        </defs>
+                    </svg>
+                </a>
+            </span>
+            <img src="/media/Rectangle 29.png" alt="">
+        </div>
+        <div class="right">
+            <div class="banner-images">
+                <img src="/media/banner/Rectangle 3.png" alt="">
+                <img src="/media/banner/Rectangle 4.png" alt="">
+                <img src="/media/banner/Rectangle 5.png" alt="">
+                <img src="/media/banner/Rectangle 6.png" alt="">
+                <img src="/media/banner/Rectangle 7.png" alt="">
+                <img src="/media/banner/Rectangle 8.png" alt="">
+                <img src="/media/banner/Rectangle 9.png" alt="">
+                <img src="/media/banner/Rectangle 10.png" alt="">
+            </div>
+        </div>
+
+      </div>
+      <div class="label-left">
+        <h1>Отделения</h1>
+      </div>
+      <div class="categories" id="departments">
+        <ul>
+            <li><a href="/categories/choreography" data-category="choreography">Хореография</a></li>
+            <li><a href="/categories/art" data-category="art">Художественное</a></li>
+            <li><a href="/categories/music" data-category="music">Музыкальное</a></li>
+            <li><a href="/categories/vocal" data-category="vocal">Вокальное</a></li>
+        </ul>
+      </div>
+      <%- include('categories') %>
+      <%- include('news') %>
+    </main> 
+    
+    <%- include('footer') %>
+
+    <script>
+
+document
+    .getElementById('scroll-to-categories')
+    .addEventListener('click', () => {
+
+        document
+            .getElementById('departments')
+            .scrollIntoView({
+                behavior: 'smooth'
+            });
+
+    });
+
+</script>
+
+</body>
+</html>

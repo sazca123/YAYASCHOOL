@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('navigation') %>
+
+<div class="info-container">
+  <div class="info-header">
+    <h1>Сведения об организации</h1>
+  </div>
+
+  <div class="info-content">
+    <!-- Наименование -->
+    <section class="info-section">
+      <h2>Наименование</h2>
+      <div class="info-box">
+        <div class="info-item">
+          <strong>Полное наименование:</strong>
+          <p>Муниципальное бюджетное учреждение дополнительного образования «Детская школа искусств № 51»</p>
+        </div>
+        <div class="info-item">
+          <strong>Сокращённое наименование:</strong>
+          <p>МБУ ДО «ДШИ № 51»</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Основная информация -->
+    <section class="info-section">
+      <h2>Основная информация</h2>
+      <div class="info-box">
+        <div class="info-item">
+          <strong>Дата создания:</strong>
+          <p>09 июня 2001 года</p>
+        </div>
+        <div class="info-item">
+          <strong>Учредитель:</strong>
+          <p>Управление культуры молодёжной политики и спорта Администрации Яйского муниципального округа</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Режим работы -->
+    <section class="info-section">
+      <h2>Режим и график работы</h2>
+      <div class="info-box">
+        <div class="info-item">
+          <strong>Расписание:</strong>
+          <p>с 8:00 до 20:00 (воскресенье – выходной)</p>
+        </div>
+        <div class="info-item">
+          <strong>Администрация и служащие:</strong>
+          <p>с 8:00 до 17:00<br>Обеденный перерыв: 12:00 – 13:00</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="info-section">
+      <h2>Контактная информация</h2>
+      <div class="info-box">
+        <div class="info-item">
+          <strong>Email:</strong>
+          <p><a href="mailto:dsi_51@mail.ru">dsi_51@mail.ru</a></p>
+        </div>
+        <div class="info-item">
+          <strong>Телефон/факс:</strong>
+          <p><a href="tel:+73844122546">8-384-41 2-25-46</a></p>
+        </div>
+        <div class="info-item">
+          <strong>Сайт:</strong>
+          <p><a href="http://www.dshi-51.my1.ru" target="_blank">www.dshi-51.my1.ru</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Адреса -->
+    <section class="info-section">
+      <h2>Места осуществления образовательной деятельности</h2>
+      <div class="info-box">
+        <div class="info-item">
+          <strong>Юридический адрес:</strong>
+          <p>652100, п.г.т. Яя, ул. Ленина, д. 7</p>
+        </div>
+        <div class="info-item">
+          <strong>Фактический адрес:</strong>
+          <p>652100, п.г.т. Яя, ул. Ленина, д. 7</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Лицензирование и аккредитация -->
+    <section class="info-section">
+      <h2>Лицензирование и аккредитация</h2>
+      <div class="info-box">
+        <div class="info-item">
+          <strong>Выписка из реестра лицензий:</strong>
+          <p>на осуществление образовательной деятельности</p>
+        </div>
+        <div class="info-item">
+          <strong>Государственная аккредитация:</strong>
+          <p>отсутствует</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<%- include('footer') %>
+
+<style>
+  .info-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 50px 250px;
+  }
+
+  .info-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .info-header h1 {
+    font-size: 36px;
+    color: #4840C0;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .info-section h2 {
+    font-size: 24px;
+    color: #4840C0;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4840C0;
+  }
+
+  .info-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    background-color: #f9f9f9;
+    padding: 30px;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-item strong {
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+  }
+
+  .info-item p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .info-item a {
+    color: #4840C0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .info-item a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1400px) {
+    .info-container {
+      padding: 50px 150px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .info-container {
+      padding: 50px 50px;
+    }
+
+    .info-header h1 {
+      font-size: 28px;
+    }
+
+    .info-section h2 {
+      font-size: 20px;
+    }
+
+    .info-box {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .info-container {
+      padding: 30px 20px;
+    }
+
+    .info-header h1 {
+      font-size: 24px;
+    }
+
+    .info-section h2 {
+      font-size: 18px;
+    }
+
+    .info-box {
+      padding: 20px;
+    }
+
+    .info-item strong {
+      font-size: 14px;
+    }
+
+    .info-item p {
+      font-size: 13px;
+    }
+  }
+</style>
+
+</body>
+</html>

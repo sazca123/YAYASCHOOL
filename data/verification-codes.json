@@ -1,0 +1,28 @@
+{
+  "codes": [
+    {
+      "email": "untctrlaltdeceit@mail.ru",
+      "code": "573501",
+      "expiresAt": "2026-05-27T20:54:42.933Z",
+      "createdAt": "2026-05-27T20:44:42.933Z"
+    },
+    {
+      "email": "vano_iz_goroda@mail.ru",
+      "code": "748423",
+      "expiresAt": "2026-06-10T07:28:59.636Z",
+      "createdAt": "2026-06-10T07:18:59.636Z"
+    },
+    {
+      "email": "erop_jlox@bk.ru",
+      "code": "937685",
+      "expiresAt": "2026-06-10T07:31:39.113Z",
+      "createdAt": "2026-06-10T07:21:39.113Z"
+    },
+    {
+      "email": "edyaro@mail.ru",
+      "code": "566346",
+      "expiresAt": "2026-06-24T08:54:26.431Z",
+      "createdAt": "2026-06-24T08:44:26.431Z"
+    }
+  ]
+}

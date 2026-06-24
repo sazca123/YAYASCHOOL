@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Кабинет родителя</title>
+
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body class="dashboard-body">
+
+<%- include('../navigation') %>
+
+<div class="dashboard-layout parent-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="sidebar-profile glass-card">
+
+            <div class="avatar-circle parent-avatar">
+                <%= user.fullName
+                    ? user.fullName.charAt(0)
+                    : 'Р'
+                %>
+            </div>
+
+            <h3><%= user.fullName %></h3>
+
+            <p>Родитель</p>
+
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="dashboard-main">
+
+<!-- COMPACT HERO -->
+
+<section class="dashboard-hero glass-card parent-hero">
+
+    <div>
+
+        <span class="hero-badge">
+            Кабинет родителя
+        </span>
+
+        <h1>
+            Здравствуйте,
+            <%= user.fullName %>
+        </h1>
+
+        <p>
+            Здесь отображается
+            расписание и кружки ребёнка.
+        </p>
+
+    </div>
+
+</section>
+
+        <!-- EMPTY STATE -->
+
+        <% if(enrollments.length === 0){ %>
+
+            <div class="empty-state glass-card">
+
+                <div class="empty-icon">
+                    🎨
+                </div>
+
+                <h2>
+                    Пока нет активных записей
+                </h2>
+
+                <p>
+                    После записи ребёнка
+                    в кружок здесь появится расписание.
+                </p>
+
+            </div>
+
+        <% } else { %>
+
+            <!-- ENROLLMENTS -->
+
+            <% enrollments.forEach(enr => { %>
+
+                <!-- CHILD CARD -->
+
+                <section
+    class="child-compact-card glass-card"
+    id="child"
+>
+
+    <div class="child-left">
+
+        <div class="child-avatar-small">
+
+            <%= enr.program
+                ? enr.program.charAt(0)
+                : 'У'
+            %>
+
+        </div>
+
+        <div>
+
+            <h2>
+                <%= enr.program %>
+            </h2>
+
+            <p>
+                👨‍🏫
+                <%= enr.teacherName %>
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="
+        modern-status
+        modern-status-<%= enr.status || 'pending' %>
+    ">
+
+        <%= enr.status === 'confirmed'
+            ? 'Подтверждено'
+            : 'В ожидании'
+        %>
+
+    </div>
+
+</section>
+                <!-- SCHEDULE -->
+
+                <section
+                    class="dashboard-section glass-card"
+                    id="schedule"
+                >
+
+                    <div class="section-header">
+
+                        <h2>
+                            Ближайшие занятия
+                        </h2>
+
+
+                    </div>
+
+                    <% if (
+                        enr.schedule &&
+                        Array.isArray(enr.schedule) &&
+                        enr.schedule.length > 0
+                    ) { %>
+
+                    <div class="responsive-table">
+
+                        <table class="parent-schedule-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Занятие</th>
+
+                                    <th id="pday1-<%= enr.id %>"></th>
+                                    <th id="pday2-<%= enr.id %>"></th>
+                                    <th id="pday3-<%= enr.id %>"></th>
+                                    <th id="pday4-<%= enr.id %>"></th>
+                                    <th id="pday5-<%= enr.id %>"></th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            <% enr.schedule.forEach((row) => { %>
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            <%= row.lesson || '—' %>
+                                        </strong>
+                                    </td>
+
+                                    <% row.days.forEach(day => { %>
+
+                                        <td>
+                                            <%= day || '—' %>
+                                        </td>
+
+                                    <% }) %>
+
+                                </tr>
+
+                            <% }) %>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <% } else { %>
+
+                        <div class="empty-mini-state">
+
+                            Расписание пока
+                            не заполнено преподавателем
+
+                        </div>
+
+                    <% } %>
+
+                </section>
+
+            <% }) %>
+
+        <% } %>
+
+    </main>
+
+</div>
+
+<%- include('../footer') %>
+
+<script>
+
+function setParentDates(){
+
+    const days = [
+        'Пн',
+        'Вт',
+        'Ср',
+        'Чт',
+        'Пт'
+    ];
+
+    const now = new Date();
+
+    const monday = new Date(now);
+
+    monday.setDate(
+        now.getDate() - now.getDay() + 1
+    );
+
+    document
+        .querySelectorAll('[id^="pday1"]')
+        .forEach(el => {
+
+        const id = el.id.split('-')[1];
+
+        for(let i = 0; i < 5; i++){
+
+            const date = new Date(monday);
+
+            date.setDate(
+                monday.getDate() + i
+            );
+
+            const target =
+                document.getElementById(
+                    `pday${i+1}-${id}`
+                );
+
+            if(target){
+
+                target.innerText =
+                    `${days[i]} ${
+                        date.getDate()
+                    }.${
+                        date.getMonth()+1
+                    }`;
+
+            }
+
+        }
+
+    });
+
+}
+
+setParentDates();
+
+</script>
+
+</body>
+</html>

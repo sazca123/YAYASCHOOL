@@ -1,0 +1,748 @@
+<style>
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 24px;
+    padding: 40px 35px;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+    animation: modalShow .25s ease;
+}
+
+@keyframes modalShow {
+
+    from {
+        transform: translateY(20px) scale(.97);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    transition: .2s;
+}
+
+.modal-close:hover {
+    color: #4840C0 !important;
+    transform: scale(1.1);
+}
+
+#auth-form input {
+    width: 100%;
+    padding: 16px 18px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    font-size: 16px;
+    transition: .2s;
+    outline: none;
+    box-sizing: border-box;
+}
+
+#auth-form input:focus {
+    border-color: #4840C0;
+    box-shadow: 0 0 0 4px rgba(72,64,192,0.1);
+}
+
+.tab {
+    transition: .2s;
+    color: #666;
+}
+
+.tab.active {
+    background: #4840C0;
+    color: white;
+    box-shadow: 0 4px 15px rgba(72,64,192,0.3);
+}
+
+.enrollment-btn {
+    background: linear-gradient(135deg, #4840C0, #6C63FF);
+    border: none;
+    color: white;
+    border-radius: 14px;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.enrollment-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(72,64,192,0.35);
+}
+
+.enrollment-message {
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.enrollment-message.success {
+    background: #e8f8ee;
+    color: #28a745;
+}
+
+.enrollment-message.error {
+    background: #ffeaea;
+    color: #dc3545;
+}
+
+#parent-fields {
+    animation: fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media(max-width:600px){
+
+    .modal-content{
+        padding:30px 22px;
+        border-radius:20px;
+    }
+
+    #auth-form input{
+        padding:14px;
+    }
+}
+
+/* ==================== ROLE SELECT ==================== */
+
+.role-select{
+    display:flex;
+    gap:20px;
+    margin:25px 0;
+}
+
+.role-card{
+    flex:1;
+    border:2px solid #e5e5e5;
+    border-radius:22px;
+    padding:30px 20px;
+    cursor:pointer;
+    transition:0.3s;
+    text-align:center;
+    background:white;
+}
+
+.role-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(72,64,192,0.12);
+}
+
+.role-card.active{
+    border-color:#5b4df0;
+    box-shadow:0 8px 20px rgba(91,77,240,0.18);
+}
+
+.role-icon{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.role-title{
+    font-size:20px;
+    font-weight:700;
+    color:#333;
+}
+
+.logout-btn:hover{
+    background:transparent;
+    transform:none;
+}
+
+.nav-auth{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+@media(max-width:900px){
+
+    .nav-auth{
+        gap:10px;
+    }
+
+
+.logout-btn{
+    background:transparent;
+    color:#ff6b6b !important;
+    padding:0;
+    height:auto;
+}
+
+.logout-btn:hover{
+    background:transparent;
+    transform:none;
+}
+
+.navbar{
+    display:flex;
+    align-items:center;
+
+    width:100%;
+    padding:0 40px;
+
+    box-sizing:border-box;
+}
+
+.nav-menu{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    column-gap:18px;
+
+    list-style:none;
+    margin:0 auto;
+    padding:0;
+}
+
+.nav-menu li{
+    flex:none;
+}
+
+.nav-menu li a:not(#login-link):not(#logout-link){
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0 22px;
+    height:40px;
+
+    box-sizing:border-box;
+}
+
+.nav-auth{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-dashboard-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    height:40px;
+    padding:0 16px;
+
+    border-radius:10px;
+
+    background:#4b45c7;
+    color:white !important;
+
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+
+    transition:.2s ease;
+}
+
+.nav-dashboard-btn:hover{
+    background:#5c56db;
+}
+
+.logout-btn{
+    background:transparent;
+    color:#ff6b6b !important;
+    padding:0;
+}
+
+}
+
+.nav-menu li{
+    display:flex;
+    align-items:center;
+}
+
+#admin-panel-link,
+#teacher-dashboard-link,
+#parent-dashboard-link{
+    padding:0;
+    margin:0;
+}
+
+#admin-panel-link,
+#teacher-dashboard-link,
+#parent-dashboard-link{
+    min-width:max-content;
+}
+
+#verification-code{
+    letter-spacing:4px;
+    font-size:20px;
+    text-align:center;
+    font-weight:700;
+}
+
+</style>
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+        <img src="/media/image.png" alt="Школа 51">
+    </a>
+
+    <ul class="nav-menu">
+
+        <li><a href="/">Главная</a></li>
+
+        <li><a href="/about">О школе</a></li>
+
+        <li><a href="/info">Сведения об организации</a></li>
+       <li style="margin-left:auto;">
+    <a href="#" id="login-link">
+        Вход
+    </a>
+</li>
+
+<li>
+    <a href="/admin"
+       id="admin-panel-link"
+       style="display:none;">
+        Админ панель
+    </a>
+</li>
+
+<li>
+    <a href="#"
+       id="teacher-dashboard-link"
+       style="display:none;">
+        Кабинет преподавателя
+    </a>
+</li>
+
+<li>
+    <a href="#"
+       id="parent-dashboard-link"
+       style="display:none;">
+        Личный кабинет
+    </a>
+</li>
+
+<li>
+    <a href="#"
+       id="logout-link"
+       style="display:none; color:#ff4d4f;">
+        Выход
+    </a>
+</li>
+
+    </ul>
+
+</nav>
+
+<!-- ==================== МОДАЛЬНОЕ ОКНО ==================== -->
+<div id="login-modal" class="modal" style="display: none;">
+  <div class="modal-content" style="max-width: 480px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); padding: 40px 35px; background: white; position: relative;">
+    <span class="modal-close" style="position:absolute;right:25px;top:20px;font-size:28px;cursor:pointer;color:#999;">&times;</span>
+    
+    <h2 style="text-align:center;color:#4840C0;margin:0 0 8px 0;font-size:28px;">Добро пожаловать</h2>
+    <p style="text-align:center;color:#666;margin-bottom:30px;">Детская школа искусств №51</p>
+    
+    <form id="auth-form" novalidate>
+      <div style="display:flex;background:#f1f1f1;border-radius:50px;padding:5px;margin-bottom:30px;">
+        <label id="login-tab" class="tab active" style="flex:1;text-align:center;padding:12px;border-radius:50px;cursor:pointer;font-weight:600;">Вход</label>
+        <label id="register-tab" class="tab" style="flex:1;text-align:center;padding:12px;border-radius:50px;cursor:pointer;font-weight:600;">Регистрация</label>
+      </div>
+
+      <!-- Вход -->
+      <div id="login-fields">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+      </div>
+
+      <!-- Регистрация -->
+<div id="register-fields" style="display: none;">
+
+<div class="role-select">
+
+
+
+</div>
+
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="fullName" placeholder="ФИО" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <input type="password" name="password" placeholder="Придумайте пароль" required>
+
+                <div id="parent-fields">
+          <input type="text" name="childName" placeholder="ФИО ребёнка">
+          <input type="number" name="childAge" placeholder="Возраст ребёнка" min="5" max="18">
+        </div>
+
+</div>
+
+<div id="verification-block" style="display:none;">
+
+    <input
+        type="text"
+        id="verification-code"
+        placeholder="Код подтверждения из почты"
+        maxlength="6"
+    >
+
+</div>
+
+      <button type="submit" class="enrollment-btn" style="width:100%;padding:16px;font-size:17px;font-weight:700;margin-top:10px;">Продолжить</button>
+    </form>
+
+    <div id="auth-message" class="enrollment-message" style="display:none;margin-top:15px;text-align:center;"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('login-modal');
+    const loginLink = document.getElementById('login-link');
+    const logoutLink = document.getElementById('logout-link');
+    const adminPanelLink = document.getElementById('admin-panel-link');
+    const teacherDashboardLink = document.getElementById('teacher-dashboard-link');
+    const parentDashboardLink = document.getElementById('parent-dashboard-link');
+    const form = document.getElementById('auth-form');
+    const messageDiv = document.getElementById('auth-message');
+
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
+    const parentFields = document.getElementById('parent-fields');
+
+    const verificationBlock =
+    document.getElementById('verification-block');
+
+const verificationInput =
+    document.getElementById('verification-code');
+
+    // Проверка авторизации
+    const userStr = localStorage.getItem('loggedInUser');
+    if (userStr) {
+        const user = JSON.parse(userStr);
+        loginLink.style.display = 'none';
+        logoutLink.style.display = 'block';
+        if (user.role === 'admin') {
+    adminPanelLink.style.display = 'inline-block';
+}
+
+if (user.role === 'teacher') {
+
+    teacherDashboardLink.style.display = 'inline-block';
+
+    teacherDashboardLink.href =
+        `/teacher/dashboard?user=${encodeURIComponent(JSON.stringify(user))}`;
+}
+
+if (user.role === 'student') {
+
+    parentDashboardLink.style.display = 'inline-block';
+
+    parentDashboardLink.href =
+        `/parent/parent-dashboard?user=${encodeURIComponent(JSON.stringify(user))}`;
+}
+
+    }
+
+    loginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        form.reset();
+        showLoginMode();
+        modal.style.display = 'block';
+        messageDiv.style.display = 'none';
+    });
+
+    document.querySelector('.modal-close').addEventListener('click', () => modal.style.display = 'none');
+
+    // Переключение вкладок
+    loginTab.addEventListener('click', () => {
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+        showLoginMode();
+    });
+
+    registerTab.addEventListener('click', () => {
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+        showRegisterMode();
+    });
+
+    function showLoginMode() {
+        document.getElementById('login-fields').style.display = 'block';
+        document.getElementById('register-fields').style.display = 'none';
+    }
+
+    function showRegisterMode() {
+        document.getElementById('login-fields').style.display = 'none';
+        document.getElementById('register-fields').style.display = 'block';
+        parentFields.style.display = 'block';
+    }
+
+    parentFields.style.display = 'block';
+
+    // Отправка формы
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const isLogin = loginTab.classList.contains('active');
+        const data = {};
+
+        if (isLogin) {
+            data.email = document.querySelector('#login-fields [name="email"]').value.trim();
+            data.password = document.querySelector('#login-fields [name="password"]').value.trim();
+        } else {
+            data.email = document.querySelector('#register-fields [name="email"]').value.trim();
+            data.password = document.querySelector('#register-fields [name="password"]').value.trim();
+            data.fullName = document.querySelector('#register-fields [name="fullName"]').value.trim();
+            data.phone = document.querySelector('#register-fields [name="phone"]').value.trim();
+            data.role = 'student';
+
+            if (data.role === 'student') {
+                data.childName = document.querySelector('#register-fields [name="childName"]').value.trim();
+                data.childAge = document.querySelector('#register-fields [name="childAge"]').value.trim();
+            }
+        }
+
+        // ==================== ВАЛИДАЦИЯ ====================
+
+// Проверка email
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Проверка телефона
+const phoneRegex = /^[0-9+\-\s()]{10,20}$/;
+
+// Проверка пароля
+const passwordRegex = /^.{6,}$/;
+
+if (!data.email || !data.password) {
+    messageDiv.className = 'enrollment-message error';
+    messageDiv.textContent = 'Введите email и пароль';
+    messageDiv.style.display = 'block';
+    return;
+}
+
+// Проверка email
+if (!emailRegex.test(data.email)) {
+    messageDiv.className = 'enrollment-message error';
+    messageDiv.textContent = 'Введите корректный email';
+    messageDiv.style.display = 'block';
+    return;
+}
+
+// Проверка пароля
+if (!passwordRegex.test(data.password)) {
+    messageDiv.className = 'enrollment-message error';
+    messageDiv.textContent = 'Пароль должен быть минимум 6 символов';
+    messageDiv.style.display = 'block';
+    return;
+}
+
+// Дополнительная проверка регистрации
+if (!isLogin) {
+
+    // Проверка ФИО
+    if (!data.fullName || data.fullName.length < 5) {
+        messageDiv.className = 'enrollment-message error';
+        messageDiv.textContent = 'Введите полное ФИО';
+        messageDiv.style.display = 'block';
+        return;
+    }
+
+    // Проверка телефона
+    if (!phoneRegex.test(data.phone)) {
+        messageDiv.className = 'enrollment-message error';
+        messageDiv.textContent = 'Введите корректный номер телефона';
+        messageDiv.style.display = 'block';
+        return;
+    }
+
+    // Проверка данных ребёнка
+    if (data.role === 'student') {
+
+        if (!data.childName || data.childName.length < 3) {
+            messageDiv.className = 'enrollment-message error';
+            messageDiv.textContent = 'Введите имя ребёнка';
+            messageDiv.style.display = 'block';
+            return;
+        }
+
+        const age = parseInt(data.childAge);
+
+        if (!age || age < 5 || age > 18) {
+            messageDiv.className = 'enrollment-message error';
+            messageDiv.textContent = 'Возраст ребёнка должен быть от 5 до 18 лет';
+            messageDiv.style.display = 'block';
+            return;
+        }
+    }
+}
+
+        messageDiv.style.display = 'block';
+        messageDiv.textContent = isLogin ? 'Вход...' : 'Регистрация...';
+        messageDiv.className = 'enrollment-message';
+
+        try {
+            if (!isLogin) {
+
+    // ==================== ОТПРАВКА КОДА ====================
+
+    if (verificationBlock.style.display === 'none') {
+
+        const verifyResponse = await fetch('/api/send-verification-code', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                email: data.email
+            })
+        });
+
+        const verifyResult = await verifyResponse.json();
+
+        if (!verifyResponse.ok) {
+
+            messageDiv.className = 'enrollment-message error';
+
+            messageDiv.textContent =
+                verifyResult.error || 'Ошибка отправки кода';
+
+            return;
+        }
+
+        verificationBlock.style.display = 'block';
+
+        messageDiv.className = 'enrollment-message success';
+
+        messageDiv.textContent =
+            'Код отправлен на вашу почту';
+
+        return;
+    }
+
+    // ==================== ПРОВЕРКА КОДА ====================
+
+    const enteredCode = verificationInput.value.trim();
+
+    if (!enteredCode) {
+
+        messageDiv.className = 'enrollment-message error';
+
+        messageDiv.textContent =
+            'Введите код из почты';
+
+        return;
+    }
+
+    const codeResponse = await fetch('/api/verify-code', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            email: data.email,
+            code: enteredCode
+        })
+    });
+
+    const codeResult = await codeResponse.json();
+
+    if (!codeResponse.ok) {
+
+        messageDiv.className = 'enrollment-message error';
+
+        messageDiv.textContent =
+            codeResult.error || 'Неверный код';
+
+        return;
+    }
+}
+            const endpoint = isLogin ? '/api/login' : '/api/register';
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                messageDiv.className = 'enrollment-message success';
+                messageDiv.textContent = result.message || 'Успешно!';
+
+                if (isLogin && result.user) {
+                    localStorage.setItem('loggedInUser', JSON.stringify(result.user));
+                    setTimeout(() => {
+                        if (result.user.role === 'admin') window.location.href = '/admin';
+                        else if (result.user.role === 'teacher') {
+                            window.location.href = `/teacher/dashboard?user=${encodeURIComponent(JSON.stringify(result.user))}`;
+                        } else {
+                            window.location.reload();
+                        }
+                    }, 1000);
+                } else {
+                    setTimeout(() => {
+
+    modal.style.display = 'none';
+
+    verificationBlock.style.display = 'none';
+
+    verificationInput.value = '';
+
+}, 1500);
+                }
+            } else {
+                messageDiv.className = 'enrollment-message error';
+                messageDiv.textContent = result.error || 'Ошибка';
+            }
+        } catch (err) {
+            console.error(err);
+            messageDiv.className = 'enrollment-message error';
+            messageDiv.textContent = 'Ошибка соединения';
+        }
+    });
+
+    logoutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (confirm('Выйти?')) {
+            localStorage.removeItem('loggedInUser');
+            window.location.reload();
+        }
+    });
+});
+
+
+</script>
+

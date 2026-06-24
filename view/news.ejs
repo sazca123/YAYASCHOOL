@@ -1,0 +1,50 @@
+<!-- Блок новостей -->
+<section id="news-section">
+    <div class="news-container">
+        <h2>Свежие новости</h2>
+        <div class="news-grid" id="news-grid">
+            <!-- Новости загружаются здесь через JavaScript -->
+        </div>
+    </div>
+</section>
+
+<script>
+    // Загрузка новостей при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        loadLatestNews();
+    });
+
+    // Функция для загрузки последних 6 новостей
+    async function loadLatestNews() {
+        try {
+            const response = await fetch('/api/news/latest');
+            const data = await response.json();
+            
+            if (data.news && data.news.length > 0) {
+                populateNews(data.news);
+            } else {
+                document.getElementById('news-grid').innerHTML = '<p class="no-news">Новостей пока нет</p>';
+            }
+        } catch (error) {
+            console.error('Ошибка при загрузке новостей:', error);
+            document.getElementById('news-grid').innerHTML = '<p class="no-news">Ошибка при загрузке новостей</p>';
+        }
+    }
+    
+    // Функция для заполнения сетки новостями
+    function populateNews(news) {
+        const newsGrid = document.getElementById('news-grid');
+        newsGrid.innerHTML = news.map(item => `
+            <article class="news-card">
+                <div class="news-image-container">
+                    <img src="${item.image}" alt="${item.title}" class="news-image">
+                </div>
+                <div class="news-content">
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                    <span class="news-date">${new Date(item.createdAt).toLocaleDateString('ru-RU')}</span>
+                </div>
+            </article>
+        `).join('');
+    }
+</script>
