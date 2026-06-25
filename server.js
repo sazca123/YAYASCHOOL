@@ -610,8 +610,20 @@ function checkAdmin(req, res) {
 // Страница админ панели
 app.get('/admin', (req, res) => {
   const { adminEmail, adminPassword } = req.query;
-  
-  if (!adminEmail || !adminPassword) {
+
+  const normalizeAdminValue = (value) => {
+    if (typeof value !== 'string') return null;
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    const lower = trimmed.toLowerCase();
+    if (lower === 'null' || lower === 'undefined') return null;
+    return trimmed;
+  };
+
+  const normalizedEmail = normalizeAdminValue(adminEmail);
+  const normalizedPassword = normalizeAdminValue(adminPassword);
+
+  if (!normalizedEmail || !normalizedPassword) {
     return res.render('admin', { 
       adminName: null,
       error: 'Требуется аутентификация. Используйте параметры adminEmail и adminPassword в URL'
@@ -619,7 +631,7 @@ app.get('/admin', (req, res) => {
   }
   
   const usersData = readUsers();
-  const admin = usersData.users.find(u => u.email === adminEmail && u.password === adminPassword && u.role === 'admin');
+  const admin = usersData.users.find(u => u.email === normalizedEmail && u.password === normalizedPassword && u.role === 'admin');
   
   if (!admin) {
     return res.status(401).render('admin', { 
