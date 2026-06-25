@@ -187,7 +187,9 @@ const normalizeAdminValue = value => {
 const adminEmail = normalizeAdminValue(urlParams.get('adminEmail')) || normalizeAdminValue(localStorage.getItem('adminEmail'));
 const adminPassword = normalizeAdminValue(urlParams.get('adminPassword')) || normalizeAdminValue(localStorage.getItem('adminPassword'));
 
-if (!adminEmail || !adminPassword) {
+const adminCredentialsValid = adminEmail && adminPassword;
+
+if (!adminCredentialsValid) {
     console.error('Админ данные не найдены!');
     localStorage.removeItem('adminEmail');
     localStorage.removeItem('adminPassword');
@@ -197,8 +199,7 @@ if (!adminEmail || !adminPassword) {
             <p>Пожалуйста, войдите через <a href="/admin-login">админ вход</a>.</p>
         </div>
     `;
-    throw new Error('Missing admin credentials');
-}
+} else {
 
     const programsList = [
         { category: "choreography", name: "Классический танец" },
@@ -569,6 +570,11 @@ document.getElementById('create-teacher-form')
 
     e.preventDefault();
 
+    if (!adminCredentialsValid) {
+        alert('Требуется авторизация администратора.');
+        return;
+    }
+
     const response = await fetch('/api/admin/create-teacher', {
 
         method: 'POST',
@@ -608,7 +614,9 @@ document.getElementById('create-teacher-form')
 
 });
 
-loadTeachers();
+if (adminCredentialsValid) {
+    loadTeachers();
+}
 
 </script>
 </body>
