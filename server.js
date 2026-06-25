@@ -1003,13 +1003,24 @@ app.get('/teacher/students', (req, res) => {
 
 // API для получения списка преподавателей
 app.get('/api/admin/teachers', (req, res) => {
-    const { adminEmail, adminPassword } = req.query;
-    if (!checkAdmin(req, res)) return;
+  const adminEmailRaw = req.query.adminEmail;
+  const adminPasswordRaw = req.query.adminPassword;
 
-    const usersData = readUsers();
-    const teachers = usersData.users.filter(u => u.role === 'teacher');
-    
-    res.json({ teachers });
+  // Debug: show incoming raw values (do not log passwords in production)
+  console.log('GET /api/admin/teachers - raw adminEmail:', adminEmailRaw, 'raw adminPassword:', adminPasswordRaw ? '***' : '(none)');
+
+  if (!checkAdmin(req, res)) {
+    console.log('GET /api/admin/teachers - admin check failed');
+    return;
+  }
+
+  // If checkAdmin passed, log which admin was used (email only)
+  const usersData = readUsers();
+  const admin = usersData.users.find(u => u.email === (Array.isArray(adminEmailRaw) ? adminEmailRaw[adminEmailRaw.length-1] : adminEmailRaw));
+  console.log('GET /api/admin/teachers - authenticated admin:', admin ? admin.email : '(unknown)');
+
+  const teachers = usersData.users.filter(u => u.role === 'teacher');
+  res.json({ teachers });
 });
 
 // API для одобрения/отклонения преподавателя
