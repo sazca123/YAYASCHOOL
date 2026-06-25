@@ -574,17 +574,37 @@ app.post('/api/enroll', (req, res) => {
 
 // Вспомогательная функция проверки админа
 function checkAdmin(req, res) {
-    const adminEmail = req.query.adminEmail || req.body.adminEmail;
-    const adminPassword = req.query.adminPassword || req.body.adminPassword;
-    
-    const usersData = readUsers();
-    const admin = usersData.users.find(u => u.email === adminEmail && u.password === adminPassword && u.role === 'admin');
-    
-    if (!admin) {
-        res.status(401).json({ error: 'Доступ запрещен' });
-        return false;
-    }
-    return true;
+  const adminEmailRaw = req.query.adminEmail || req.body.adminEmail;
+  const adminPasswordRaw = req.query.adminPassword || req.body.adminPassword;
+
+  // Support array values coming from form submissions; take the last value
+  const adminEmail = Array.isArray(adminEmailRaw) ? adminEmailRaw[adminEmailRaw.length - 1] : adminEmailRaw;
+  const adminPassword = Array.isArray(adminPasswordRaw) ? adminPasswordRaw[adminPasswordRaw.length - 1] : adminPasswordRaw;
+
+  // Normalize common "missing" representations to null
+  const normalize = (v) => {
+    if (typeof v !== 'string') return v;
+    const t = v.trim().toLowerCase();
+    if (t === '' || t === 'null' || t === 'undefined') return null;
+    return v.trim();
+  };
+
+  const email = normalize(adminEmail);
+  const password = normalize(adminPassword);
+
+  if (!email || !password) {
+    res.status(401).json({ error: 'Доступ запрещен. Требуется аутентификация администратора.' });
+    return false;
+  }
+
+  const usersData = readUsers();
+  const admin = usersData.users.find(u => u.email === email && u.password === password && u.role === 'admin');
+
+  if (!admin) {
+    res.status(401).json({ error: 'Доступ запрещен. Неверные учетные данные администратора.' });
+    return false;
+  }
+  return true;
 }
 
 // Страница админ панели
