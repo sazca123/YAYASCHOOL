@@ -624,20 +624,14 @@ app.get('/admin', (req, res) => {
   const normalizedPassword = normalizeAdminValue(adminPassword);
 
   if (!normalizedEmail || !normalizedPassword) {
-    return res.render('admin', { 
-      adminName: null,
-      error: 'Требуется аутентификация. Используйте параметры adminEmail и adminPassword в URL'
-    });
+    return res.redirect('/admin-login');
   }
   
   const usersData = readUsers();
   const admin = usersData.users.find(u => u.email === normalizedEmail && u.password === normalizedPassword && u.role === 'admin');
   
   if (!admin) {
-    return res.status(401).render('admin', { 
-      adminName: null,
-      error: 'Доступ запрещен. Неверные учетные данные администратора.'
-    });
+    return res.redirect('/admin-login');
   }
   
   res.render('admin', { adminName: admin.fullName });

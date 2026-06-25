@@ -193,12 +193,7 @@ if (!adminCredentialsValid) {
     console.error('Админ данные не найдены!');
     localStorage.removeItem('adminEmail');
     localStorage.removeItem('adminPassword');
-    document.body.innerHTML = `
-        <div style="padding:40px; font-family:Inter, system-ui, sans-serif; color:#333;">
-            <h2>Требуется авторизация администратора</h2>
-            <p>Пожалуйста, войдите через <a href="/admin-login">админ вход</a>.</p>
-        </div>
-    `;
+    window.location.href = '/admin-login';
 } else {
 
     const programsList = [
